@@ -251,7 +251,7 @@ RSpec.describe 'app show' do
     PetApp.create!(pet: pet_2, app: app_1)
     visit "/apps/#{app_1.id}"
     fill_in 'Search', with: "Ba"
-    click_on("Search")
+    click_on("Submit")
 
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
@@ -276,7 +276,7 @@ RSpec.describe 'app show' do
     PetApp.create!(pet: pet_2, app: app_1)
     visit "/apps/#{app_1.id}"
     fill_in 'Search', with: "bA"
-    click_on("Search")
+    click_on("Submit")
 
     expect(page).to have_content(pet_1.name)
     expect(page).to have_content(pet_2.name)
