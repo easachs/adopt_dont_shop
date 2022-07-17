@@ -12,8 +12,8 @@ RSpec.describe 'Admin Shelters Index' do
     shelter_b = Shelter.create(name: 'Boulder shelter', city: 'Boulder, CO', foster_program: false, rank: 3)
 
     visit "/admin/shelters"
-
-    expect(shelter_c).to appear_before(shelter_b)
-    expect(shelter_b).to appear_before(shelter_a)
+    save_and_open_page
+    expect(shelter_c.name).to appear_before(shelter_b.name)
+    expect(shelter_b.name).to appear_before(shelter_a.name)
   end
 end

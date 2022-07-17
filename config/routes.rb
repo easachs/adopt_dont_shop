@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/apps/new', to: 'apps#new'
   get '/apps/:id', to: 'apps#show'
   post '/apps', to: 'apps#create'
-  
+
   patch '/apps/:id', to: 'apps#update'
   post '/apps/:id', to: 'pet_apps#create'
 
@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   get '/shelters/:id/edit', to: 'shelters#edit'
   patch '/shelters/:id', to: 'shelters#update'
   delete '/shelters/:id', to: 'shelters#destroy'
+  namespace :admin do
+    get '/shelters', to: 'shelters#index'
+  end
 
   get '/pets', to: 'pets#index'
   get '/pets/:id', to: 'pets#show'
