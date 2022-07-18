@@ -44,6 +44,8 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'simplecov'
+  gem 'factory_bot_rails', '~> 6.2.0'
+  gem 'faker'
 end
 
 group :development do
