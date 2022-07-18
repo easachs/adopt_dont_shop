@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   delete '/shelters/:id', to: 'shelters#destroy'
   namespace :admin do
     get '/shelters', to: 'shelters#index'
+    get '/shelters/:id', to: 'shelters#show'
   end
 
   get '/pets', to: 'pets#index'
