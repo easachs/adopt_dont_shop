@@ -7,7 +7,7 @@
 <p>ZIP: <%= @app.zip %></p>
 <p>Description: <%= @app.description %></p>
 <p>
-  Pets: <% @app.pets.each do |pet| %>
+  Pets: <% @pets.each do |pet| %>
     <% @app.final_status %>
     <div id="pet_<%= pet.id %>"><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
     <% if pet.already_accepted? && pet.pet_app_approval(@app) %>
