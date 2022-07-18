@@ -39,11 +39,11 @@ RSpec.describe 'app show' do
     expect(page).to have_link("Veterinarians")
     expect(page).to have_link("Veterinary Offices")
   end
-  
+
   it 'displays a link to all veterinarians' do
     app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
     visit "/apps/#{app_1.id}"
-    
+
     expect(page).to have_link("Veterinarians")
     click_link("Veterinarians")
     expect(page).to have_current_path('/veterinarians')
@@ -52,9 +52,9 @@ RSpec.describe 'app show' do
     expect(page).to have_link("Veterinarians")
     expect(page).to have_link("Veterinary Offices")
   end
-  
+
     # Application Show Page
-  
+
     # As a visitor
     # When I visit an applications show page
     # Then I can see the following:
@@ -63,7 +63,7 @@ RSpec.describe 'app show' do
     # - Description of why the applicant says they'd be a good home for this pet(s)
     # - names of all pets that this application is for (all names of pets should be links to their show page)
     # - The Application's status, either "In Progress", "Pending", "Accepted", or "Rejected"
-  
+
   it 'displays app attributes' do
     app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
     app_2 = App.create!(name: "John", address: "2021", city: "San Fran", state: "CA", zip: "90909", description: "XYZ", status: "in progress")
@@ -220,7 +220,7 @@ RSpec.describe 'app show' do
   end
 
   # No Pets on a Application
-  
+
   # As a visitor
   # When I visit an application's show page
   # And I have not added any pets to the application
@@ -231,5 +231,55 @@ RSpec.describe 'app show' do
     no_pet_app = App.create!(name: "Dave", address: "22 Dexter St", city: "Denver", state: "CO", zip: "80200", description: "123", status: "in progress")
     visit "/apps/#{no_pet_app.id}"
     expect(page).to_not have_content('Submit Application')
+  end
+
+  #Partial Matches for Pet Names
+  #
+  #As a visitor
+  # When I visit an application show page
+  # And I search for Pets by name
+  # Then I see any pet whose name PARTIALLY matches my search
+  # For example, if I search for "fluff", my search would match pets with names "fluffy", "fluff", and "mr. fluff"
+
+  it 'can search for pet names on applications' do
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+    PetApp.create!(pet: pet_1, app: app_1)
+    PetApp.create!(pet: pet_2, app: app_1)
+    visit "/apps/#{app_1.id}"
+    fill_in 'Search', with: "Ba"
+    click_on("Submit")
+
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
+    expect(page).to_not have_content(pet_3.name)
+  end
+
+  # Case Insensitive Matches for Pet Names
+  #
+  # As a visitor
+  # When I visit an application show page
+  # And I search for Pets by name
+  # Then my search is case insensitive
+  # For example, if I search for "fluff", my search would match pets with names "Fluffy", "FLUFF", and "Mr. FlUfF"
+
+  it 'can search for case insensitive pets by name on applications' do
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
+    shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+    pet_1 = Pet.create(adoptable: true, age: 7, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
+    pet_2 = Pet.create(adoptable: true, age: 3, breed: 'domestic pig', name: 'Babe', shelter_id: shelter.id)
+    pet_3 = Pet.create(adoptable: true, age: 4, breed: 'chihuahua', name: 'Elle', shelter_id: shelter.id)
+    PetApp.create!(pet: pet_1, app: app_1)
+    PetApp.create!(pet: pet_2, app: app_1)
+    visit "/apps/#{app_1.id}"
+    fill_in 'Search', with: "bA"
+    click_on("Submit")
+
+    expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_2.name)
+    expect(page).to_not have_content(pet_3.name)
   end
 end
