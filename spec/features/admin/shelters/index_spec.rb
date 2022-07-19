@@ -92,11 +92,17 @@ RSpec.describe 'Admin Shelters Index' do
     app_2 = App.create!(name: "Jack", address: "2021 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
     PetApp.create!(pet: pet_1, app: app_1)
     PetApp.create!(pet: pet_2, app: app_2)
-    visit "/admin/shelters"
 
-    expect(page).to have_link("#{@shelter_1.name}")
-    expect(page).to have_link("#{@shelter_2.name}")
+    visit "/admin/shelters"
+    expect(page).to have_link("#{shelter_1.name}")
     click_link "#{shelter_1.name}"
-    expect(current_path).to eq("/admin/shelter/#{@shelter_1.id}")
+    expect(current_path).to eq("/admin/shelters/#{shelter_1.id}")
+
+    visit "/admin/shelters"
+    within "#pending" do
+      expect(page).to have_link("#{shelter_2.name}")
+      click_link "#{shelter_2.name}"
+      expect(current_path).to eq("/admin/shelters/#{shelter_2.id}")
+    end
   end
 end
