@@ -5,6 +5,8 @@ class Admin::SheltersController < ApplicationController
   end
 
   def show
-    @shelter = Shelter.name_and_address(params[:id])
+    shelter = Shelter.find(params[:id])
+    @shelter_address = Shelter.name_and_address(params[:id])
+    @avg_pet_age = shelter.avg_age
   end
 end
