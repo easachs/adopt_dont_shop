@@ -32,16 +32,28 @@ class Shelter < ApplicationRecord
     order(:name)
   end
 
+  def action_required
+    pets_with_pending_apps.joins(:pet_apps).where(pet_apps: { approval: nil })
+  end
+
+  def pets_with_pending_apps
+    pets.joins(:apps).group(:id).where(apps: {status: 'pending'})
+  end
+
   def num_adoptable
     adoptable_pets.count
   end
 
   def num_approved
-    pets.joins(:pet_apps).where("pet_apps.approval = 'approved'").count
+    pets.joins(:pet_apps).where("pet_apps.approval = 'Approved'").count
   end
 
   def avg_age
-    adoptable_pets.average(:age)
+    if adoptable_pets.empty?
+      "This shelter has no pets"
+    else
+      adoptable_pets.average(:age).round(2)
+    end
   end
 
   def pending_apps
