@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2022_07_17_183750) do
     t.string "zip"
     t.string "description"
     t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pet_apps", force: :cascade do |t|
@@ -51,6 +53,8 @@ ActiveRecord::Schema.define(version: 2022_07_17_183750) do
     t.string "name"
     t.string "city"
     t.integer "rank"
+    t.string "address"
+    t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
