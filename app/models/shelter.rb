@@ -24,6 +24,38 @@ class Shelter < ApplicationRecord
     joins(pets: :apps).where(pets: { apps: { status: 'pending' }})
   end
 
+  def self.name_and_address(id)
+    find_by_sql("SELECT name, city, address, zip FROM shelters WHERE shelters.id = #{id}").first
+  end
+
+  def self.alpha_sort
+    order(:name)
+  end
+
+  def action_required
+    pets_with_pending_apps.joins(:pet_apps).where(pet_apps: { approval: nil })
+  end
+
+  def pets_with_pending_apps
+    pets.joins(:apps).group(:id).where(apps: {status: 'pending'})
+  end
+
+  def num_adoptable
+    adoptable_pets.count
+  end
+
+  def num_approved
+    pets.joins(:pet_apps).where("pet_apps.approval = 'Approved'").count
+  end
+
+  def avg_age
+    if adoptable_pets.empty?
+      "This shelter has no pets"
+    else
+      adoptable_pets.average(:age).round(2)
+    end
+  end
+
   def pending_apps
     App.where(status: 'pending')
   end
