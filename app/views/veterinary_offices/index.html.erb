@@ -5,7 +5,7 @@
 
 <% @veterinary_offices.each do |office| %>
   <div id="veterinary-office-<%= office.id %>">
-    <h3><%= office.name %></h3>
+    <h3><%= link_to office.name, "/veterinary_offices/#{office.id}" %></h3>
     <p>Created at: <%= office.created_at %></p>
     <%= link_to "Update #{office.name}", "/veterinary_offices/#{office.id}/edit" %>
     <%= link_to "Delete #{office.name}", "/veterinary_offices/#{office.id}", method: :delete %>

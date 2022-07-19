@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   patch '/apps/:id', to: 'apps#update'
   post '/apps/:id', to: 'pet_apps#create'
 
-  get '/admin/apps', to: 'admin/apps#index'
   get '/admin/apps/:id', to: 'admin/apps#show'
   patch '/admin/pet_apps/:id', to: 'admin/pet_apps#update'
 
@@ -23,7 +22,6 @@ Rails.application.routes.draw do
 
   get '/admin/shelters', to: 'admin/shelters#index'
   get '/admin/shelters/:id', to: 'admin/shelters#show'
-
 
   get '/pets', to: 'pets#index'
   get '/pets/:id', to: 'pets#show'
