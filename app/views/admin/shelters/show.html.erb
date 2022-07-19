@@ -1,0 +1,20 @@
+<h1><%= @shelter_address.name %></h1>
+<p><%= @shelter_address.address %>
+<br>
+<%= @shelter_address.city %>
+<br>
+<%= @shelter_address.zip %></p>
+
+<h2>Shelter Statistics</h2>
+<p>Average age of adoptable pets: <%= @avg_pet_age %></p>
+<p>Number of adoptable pets: <%= @adoptable %></p>
+<p>Number of adopted pets: <%= @approved %></p>
+
+<h2>Action Required</h2>
+<div id="action_required">
+  <% @action_reqd.each do |pet| %>
+    <% pet.pet_apps.where(approval: nil).each_with_index do |pet_app, index| %>
+      <p id="link-<%= index %>"><%= link_to "#{pet.name}", "/admin/apps/#{pet_app.app.id}" %></p>
+    <% end %>
+  <% end %>
+</div>

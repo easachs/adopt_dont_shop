@@ -1,3 +1,5 @@
+<%= link_to "Admin Show", "/admin/apps/#{@app.id}" %>
+
 <h1>Name: <%= @app.name %></h1>
 <p>Address: <%= @app.address %></p>
 <p>City: <%= @app.city %></p>
@@ -15,6 +17,6 @@
   <%= render partial: 'search' %>
 <% end %>
 
-<% if !@app.pets.empty? %>
+<% if !@app.pets.empty? && @app.status == "in progress" %>
   <%= render partial: 'submit' %>
 <% end %>

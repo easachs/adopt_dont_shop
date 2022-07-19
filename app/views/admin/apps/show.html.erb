@@ -1,3 +1,5 @@
+<%= link_to "User Show", "/apps/#{@app.id}" %>
+
 <h1>Name: <%= @app.name %></h1>
 <p>Address: <%= @app.address %></p>
 <p>City: <%= @app.city %></p>
@@ -5,18 +7,21 @@
 <p>ZIP: <%= @app.zip %></p>
 <p>Description: <%= @app.description %></p>
 <p>
-  Pets: <% @app.pets.each do |pet| %>
+  Pets: <% @pets.each do |pet| %>
     <% @app.final_status %>
     <div id="pet_<%= pet.id %>"><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
     <% if pet.already_accepted? && pet.pet_app_approval(@app) %>
-      <p>Already approved <%= pet.pet_app_approval(@app) %></p>
+      <p>Already approved</p>
+      <p><%= pet.pet_app_approval(@app) %></p>
     <% elsif pet.already_accepted? %>
-      <p>Already approved <%= button_to "Reject", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Rejected'}, method: :patch %></p>
+      <p>Already approved</p>
+      <p><%= button_to "Reject", "/admin/pet_apps/#{@app.id}", action: :update, params: {pet_id: pet.id, approval: 'Rejected'}, method: :patch %></p>
     <% elsif !pet.pet_app_approval(@app) %>
-      <p><%= button_to "Approve", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Approved'}, method: :patch %>
-      <%= button_to "Reject", "/admin/pet_apps/#{@app.id}", action: :update, params: {app_id: @app.id, pet_id: pet.id, approval: 'Rejected'}, method: :patch %></p>
+      <p><%= button_to "Approve", "/admin/pet_apps/#{@app.id}", action: :update, params: {pet_id: pet.id, approval: 'Approved'}, method: :patch %></p>
+      <p><%= button_to "Reject", "/admin/pet_apps/#{@app.id}", action: :update, params: {pet_id: pet.id, approval: 'Rejected'}, method: :patch %></p>
     <% else %>
       <%= pet.pet_app_approval(@app) %>
     <% end %></div>
   <% end %></p>
+  <% @app.final_status %>
 <p>Status: <%= @app.status %></p>
