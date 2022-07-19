@@ -22,6 +22,5 @@ RSpec.describe 'Admin Shelters Show Page' do
 
     expect(page).to have_content("Statistics")
     expect(page).to have_content("Average age of adoptable pets: 2")
-    save_and_open_page
   end
 end
