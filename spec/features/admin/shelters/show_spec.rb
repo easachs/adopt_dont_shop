@@ -52,7 +52,7 @@ RSpec.describe 'Admin Shelters Show Page' do
     expect(page).to have_content("Number of adopted pets: 2")
   end
 
-  it 'has an action required section that shows all pets that have a pending application and have not yet been marked approved or rejected' do
+  it 'has an action required section that shows all pets that have a pending application and have not yet been marked approved or rejected, and links to the admin show page where I can accept or reject the pet' do
     shelter = Shelter.create!(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9, address: '14 Maple St', zip: '81110')
     pet_1 = Pet.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Bare-y Manilow', shelter_id: shelter.id)
     pet_2 = Pet.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter.id)
@@ -75,7 +75,6 @@ RSpec.describe 'Admin Shelters Show Page' do
       expect(page).to have_content(pet_3.name)
       expect(page).to_not have_content(pet_1.name)
       expect(page).to_not have_content(pet_2.name)
-      save_and_open_page
       within "#link-0" do
         click_on "#{pet_3.name}"
         expect(current_path).to eq("/admin/apps/#{app_3.id}")
