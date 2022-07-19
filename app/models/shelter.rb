@@ -24,6 +24,10 @@ class Shelter < ApplicationRecord
     joins(pets: :apps).where(pets: { apps: { status: 'pending' }})
   end
 
+  def self.name_and_address(id)
+    find_by_sql("SELECT name, city, address, zip FROM shelters WHERE shelters.id = #{id}").first
+  end
+
   def pending_apps
     App.where(status: 'pending')
   end
