@@ -28,6 +28,10 @@ class Shelter < ApplicationRecord
     find_by_sql("SELECT name, city, address, zip FROM shelters WHERE shelters.id = #{id}").first
   end
 
+  def self.alpha_sort
+    order(:name)
+  end
+
   def pending_apps
     App.where(status: 'pending')
   end
