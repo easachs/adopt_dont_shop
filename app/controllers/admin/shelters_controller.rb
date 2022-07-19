@@ -9,5 +9,6 @@ class Admin::SheltersController < ApplicationController
     @shelter_address = Shelter.name_and_address(params[:id])
     @avg_pet_age = shelter.avg_age
     @adoptable = shelter.num_adoptable
+    @approved = shelter.num_approved
   end
 end
