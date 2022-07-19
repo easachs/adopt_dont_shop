@@ -10,7 +10,7 @@ RSpec.describe 'Admin Shelters Show Page' do
     shelter = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9, address: '14 Maple St', zip: '81110')
 
     visit "/admin/shelters/#{shelter.id}"
-
+    
     expect(page).to have_content(shelter.name)
     expect(page).to have_content(shelter.address)
     expect(page).to have_content(shelter.city)
