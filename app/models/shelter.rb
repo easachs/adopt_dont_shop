@@ -32,6 +32,10 @@ class Shelter < ApplicationRecord
     order(:name)
   end
 
+  def avg_age
+    adoptable_pets.average(:age)
+  end
+
   def pending_apps
     App.where(status: 'pending')
   end
