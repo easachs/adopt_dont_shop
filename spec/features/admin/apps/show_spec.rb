@@ -238,7 +238,7 @@ RSpec.describe 'admin app show' do
     expect(page).to have_content('Status: pending')
     
     within "#pet_#{pet_1.id}" do
-      expect(page).to have_content("Already approved")
+      expect(page).to have_content("Approved elsewhere")
       expect(page).to_not have_button("Approve")
       expect(page).to have_button("Reject")
       click_button 'Reject'

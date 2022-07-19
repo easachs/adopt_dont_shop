@@ -11,10 +11,9 @@
     <% @app.final_status %>
     <div id="pet_<%= pet.id %>"><p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
     <% if pet.already_accepted? && pet.pet_app_approval(@app) %>
-      <p>Already approved</p>
       <p><%= pet.pet_app_approval(@app) %></p>
     <% elsif pet.already_accepted? %>
-      <p>Already approved</p>
+      <p>Approved elsewhere</p>
       <p><%= button_to "Reject", "/admin/pet_apps/#{@app.id}", action: :update, params: {pet_id: pet.id, approval: 'Rejected'}, method: :patch %></p>
     <% elsif !pet.pet_app_approval(@app) %>
       <p><%= button_to "Approve", "/admin/pet_apps/#{@app.id}", action: :update, params: {pet_id: pet.id, approval: 'Approved'}, method: :patch %></p>
