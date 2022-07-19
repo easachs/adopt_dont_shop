@@ -35,7 +35,7 @@ end
 
 shelter_3 = Shelter.create!(name: "Denver Animal Shelter", city: "Denver", rank: 3, foster_program: true)
 
-8.times do
+5.times do
   shelter_3.pets.create!(
     name: Faker::Creature::Dog.name,
     breed: Faker::Creature::Dog.breed,
@@ -49,12 +49,12 @@ app_3 = App.create!(name: "Jeff", address: "1234 Dahlia Rd", city: "Tampa", stat
 
 5.times do
   App.create!(
-    name: Faker::GreekPhilosophers.name,
+    name: Faker::Movies::PrincessBride.character,
     address: Faker::Address.street_address,
     city: Faker::Address.city,
     state: Faker::Address.state_abbr,
     zip: Faker::Address.zip,
-    description: [Faker::GreekPhilosophers.quote, nil].sample,
+    description: [Faker::Movies::PrincessBride.quote, nil].sample,
     status: "in progress")
 end
 
