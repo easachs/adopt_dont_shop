@@ -54,8 +54,8 @@ RSpec.describe 'app show' do
   end
 
   it 'displays app attributes' do
-    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
-    app_2 = App.create!(name: "John", address: "2021", city: "San Fran", state: "CA", zip: "90909", description: "XYZ", status: "in progress")
+    app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", status: "in progress")
+    app_2 = App.create!(name: "John", address: "2021", city: "San Fran", state: "CA", zip: "90909", status: "in progress")
     visit "/apps/#{app_1.id}"
 
     expect(page).to have_content(app_1.name)
@@ -63,7 +63,6 @@ RSpec.describe 'app show' do
     expect(page).to have_content(app_1.city)
     expect(page).to have_content(app_1.state)
     expect(page).to have_content(app_1.zip)
-    expect(page).to have_content(app_1.description)
     expect(page).to_not have_content(app_2.name)
   end
 

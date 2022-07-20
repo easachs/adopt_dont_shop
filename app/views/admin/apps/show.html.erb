@@ -1,5 +1,8 @@
-<%= link_to "User Applications Show", "/apps/#{@app.id}" %>
+<h4>
+  <%= link_to "User Applications Show", "/apps/#{@app.id}" %>
+</h4>
 
+<section>
 <h1>Name: <%= @app.name %></h1>
 <p>Address: <%= @app.address %></p>
 <p>City: <%= @app.city %></p>
@@ -24,3 +27,4 @@
   <% end %></p>
   <% @app.final_status %>
 <p>Status: <%= @app.status %></p>
+</section>

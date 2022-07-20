@@ -1,22 +1,29 @@
+<h4>
 <%= link_to "Admin Applications Show", "/admin/apps/#{@app.id}" %>
+</h4>
 
-<h1>Name: <%= @app.name %></h1>
-<p>Address: <%= @app.address %></p>
-<p>City: <%= @app.city %></p>
-<p>State: <%= @app.state %></p>
-<p>ZIP: <%= @app.zip %></p>
-<p>Description: <%= @app.description %></p>
-<p>
-  Pets: <% @app.pets.each do |pet| %>
-  <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+<section>
+  <h2>Name: <%= @app.name %></h2>
+  <p>Address: <%= @app.address %></p>
+  <p>City: <%= @app.city %></p>
+  <p>State: <%= @app.state %></p>
+  <p>ZIP: <%= @app.zip %></p>
+  <p>
+    Pets: <% @app.pets.each do |pet| %>
+    <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
+    <% end %>
+  <p>Status: <%= @app.status %></p>
+
+  <% if !@app.pets.empty? && @app.status == "in progress" %>
+    <p>Description: <%= @app.description %></p>
+    <%= render partial: 'submit' %>
   <% end %>
-</p>
-<p>Status: <%= @app.status %></p>
+
+  <% if @app.status == "pending" %>
+    <p>Description: <%= @app.description %></p>
+  <% end %>
+</section>
 
 <% if @app.status == "in progress" %>
   <%= render partial: 'search' %>
-<% end %>
-
-<% if !@app.pets.empty? && @app.status == "in progress" %>
-  <%= render partial: 'submit' %>
 <% end %>
