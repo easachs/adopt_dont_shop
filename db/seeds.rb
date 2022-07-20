@@ -7,12 +7,12 @@ Veterinarian.destroy_all
 VeterinaryOffice.destroy_all
 App.destroy_all
 
-shelter_1 = Shelter.create!(name: "Dumb Friends League", city: "Denver", rank: 1, foster_program: true)
+shelter_1 = Shelter.create!(name: "Dumb Friends League", city: "Denver", rank: 1, foster_program: true, address: "100 Drury Ln", zip: "80200")
 pet_1 = shelter_1.pets.create!(name: "Parker", breed: "Lab", age: 5, adoptable: false)
 pet_2 = shelter_1.pets.create!(name: "Rugsby", breed: "Beagle", age: 6, adoptable: true)
 pet_3 = shelter_1.pets.create!(name: "Keyba", breed: "Shepherd", age: 7, adoptable: true)
 
-5.times do
+3.times do
   shelter_1.pets.create!(
     name: Faker::Creature::Dog.name,
     breed: Faker::Creature::Dog.breed,
@@ -20,12 +20,12 @@ pet_3 = shelter_1.pets.create!(name: "Keyba", breed: "Shepherd", age: 7, adoptab
     adoptable: [true, false].sample)
 end
 
-shelter_2 = Shelter.create!(name: "Foothills Animal Shelter", city: "Lakewood", rank: 2, foster_program: false)
+shelter_2 = Shelter.create!(name: "Foothills Animal Shelter", city: "Lakewood", rank: 2, foster_program: false, address: "200 Mulberry St", zip: "80201")
 pet_4 = shelter_2.pets.create!(name: "Bingly", breed: "Mix", age: 8, adoptable: true)
 pet_5 = shelter_2.pets.create!(name: "Juju", breed: "Boston", age: 2, adoptable: false)
 pet_6 = shelter_2.pets.create!(name: "Carl", breed: "Bulldog", age: 4, adoptable: false)
 
-5.times do
+3.times do
   shelter_2.pets.create!(
     name: Faker::Creature::Dog.name,
     breed: Faker::Creature::Dog.breed,
@@ -33,9 +33,9 @@ pet_6 = shelter_2.pets.create!(name: "Carl", breed: "Bulldog", age: 4, adoptable
     adoptable: [true, false].sample)
 end
 
-shelter_3 = Shelter.create!(name: "Denver Animal Shelter", city: "Denver", rank: 3, foster_program: true)
+shelter_3 = Shelter.create!(name: "Denver Animal Shelter", city: "Denver", rank: 3, foster_program: true, address: "300 Cherry Dr", zip: "80202")
 
-5.times do
+6.times do
   shelter_3.pets.create!(
     name: Faker::Creature::Dog.name,
     breed: Faker::Creature::Dog.breed,

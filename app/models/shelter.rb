@@ -56,10 +56,6 @@ class Shelter < ApplicationRecord
     end
   end
 
-  def pending_apps
-    App.where(status: 'pending')
-  end
-
   def pet_count
     pets.count
   end

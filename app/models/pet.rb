@@ -22,7 +22,6 @@ class Pet < ApplicationRecord
   end
 
   def pet_app_approval(app)
-    # require 'pry'; binding.pry
     pet_apps.find_by(app_id: app.id).approval
   end
 end

@@ -41,6 +41,35 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe '#order_by_alpha' do
+      it 'orders the shelters alphabetically desc (sql)' do
+        expect(Shelter.order_by_alpha).to eq([@shelter_2, @shelter_3, @shelter_1])
+      end
+    end
+
+    describe '#with_pending_applications' do
+      it 'shows shelters with pending applications' do
+        app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "in progress")
+        app_2 = App.create!(name: "Jack", address: "2021 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+        PetApp.create!(pet: @pet_2, app: app_1)
+        PetApp.create!(pet: @pet_4, app: app_2)
+        expect(Shelter.with_pending_applications).to eq([@shelter_1])
+      end
+    end
+
+    describe '#name_and_address(id)' do
+      it 'returns name and address for shelter id' do
+        expect(Shelter.name_and_address(@shelter_1.id)[:name]).to eq("Aurora shelter")
+        expect(Shelter.name_and_address(@shelter_1.id)[:city]).to eq("Aurora, CO")
+      end
+    end
+
+    describe '#alpha_sort' do
+      it 'orders the shelters alphabetically' do
+        expect(Shelter.alpha_sort).to eq([@shelter_1, @shelter_3, @shelter_2])
+      end
+    end
   end
 
   describe 'instance methods' do
@@ -65,6 +94,51 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.action_required' do
+      it 'shows pets where action required' do
+        app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+        app_2 = App.create!(name: "Jack", address: "2021 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+        PetApp.create!(pet: @pet_2, app: app_1)
+        PetApp.create!(pet: @pet_4, app: app_2, approval: 'Rejected')
+        expect(@shelter_1.action_required).to eq([@pet_2])
+      end
+    end
+
+    describe '.pets_with_pending_apps' do
+      it 'returns pets in that shelter with pending apps' do
+        app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+        app_2 = App.create!(name: "Jack", address: "2021 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+        PetApp.create!(pet: @pet_2, app: app_1)
+        PetApp.create!(pet: @pet_4, app: app_2)
+        expect(@shelter_1.pets_with_pending_apps).to eq([@pet_2, @pet_4])
+      end
+    end
+
+    describe '.num_adoptable' do
+      it 'returns the number of adoptable pets at the given shelter' do
+        expect(@shelter_1.num_adoptable).to eq(2)
+      end
+    end
+
+    describe '.num_approved' do
+      it 'returns the number of approved pets at the given shelter' do
+        expect(@shelter_1.num_approved).to eq(0)
+        app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "pending")
+        app_2 = App.create!(name: "Tom", address: "2021 Maple Lane", city: "Boulder", state: "CO", zip: "80203", description: "XYZ", status: "pending")
+        PetApp.create!(pet: @pet_2, app: app_1, approval: 'Approved')
+        PetApp.create!(pet: @pet_2, app: app_2, approval: 'Rejected')
+        expect(@shelter_1.num_approved).to eq(1)
+      end
+    end
+
+    describe '.avg_age' do
+      it 'returns the average age of shelter animals' do
+
+        expect(@shelter_2.avg_age).to eq("This shelter has no pets")
+        expect(@shelter_1.avg_age).to eq(4)
       end
     end
   end
