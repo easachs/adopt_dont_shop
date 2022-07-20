@@ -1,6 +1,9 @@
+<h4>
 <%= link_to "Admin Applications Show", "/admin/apps/#{@app.id}" %>
+</h4>
 
-<h1>Name: <%= @app.name %></h1>
+<section>
+<h2>Name: <%= @app.name %></h2>
 <p>Address: <%= @app.address %></p>
 <p>City: <%= @app.city %></p>
 <p>State: <%= @app.state %></p>
@@ -10,8 +13,8 @@
   Pets: <% @app.pets.each do |pet| %>
   <p><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></p>
   <% end %>
-</p>
 <p>Status: <%= @app.status %></p>
+</section>
 
 <% if @app.status == "in progress" %>
   <%= render partial: 'search' %>

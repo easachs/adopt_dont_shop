@@ -1,6 +1,8 @@
 <h1>Create Application</h1>
 
 <%= form_with url: "/apps", method: :post, local: true do |form| %>
+
+<section>
   <p><%= form.label :name %>
   <%= form.text_field :name %></p>
     <p><%= form.label :address %>
@@ -13,5 +15,6 @@
   <%= form.number_field :zip %></p>
   <%= form.hidden_field :description, value: 'I would make a good owner because...' %>
   <%= form.hidden_field :status, value: 'in progress' %>
-  <p><%= form.submit 'Submit' %></p>
+  <p class='submit-button'><%= form.submit 'Submit' %></p>
 <% end %>
+</section>

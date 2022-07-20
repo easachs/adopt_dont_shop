@@ -1,10 +1,14 @@
-<%= link_to "Admin Shelters Show", "/admin/shelters/#{@shelter.id}" %>
+<h4>
+  <%= link_to "Admin Shelters Show", "/admin/shelters/#{@shelter.id}" %>
+</h4>
 
-<h1><%= @shelter.name %></h1>
-<p>Rank: <%= @shelter.rank %></p>
-<p>City: <%= @shelter.city %></p>
+<section>
+  <h1><%= @shelter.name %></h1>
+  <p>Rank: <%= @shelter.rank %></p>
+  <p>City: <%= @shelter.city %></p>
 
-<p class="pet-count">Pets at <%= @shelter.name %>: <%= @shelter.pet_count %></p>
-<p><%= link_to "All pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %></p>
+  <p class="pet-count">Pets at <%= @shelter.name %>: <%= @shelter.pet_count %></p>
+  <p><%= link_to "All pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets" %></p>
 
-<p><%= link_to "Delete #{@shelter.name}", "/shelters/#{@shelter.id}", method: :delete %></p>
+  <p><%= link_to "Delete #{@shelter.name}", "/shelters/#{@shelter.id}", method: :delete %></p>
+</section>

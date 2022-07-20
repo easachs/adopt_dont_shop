@@ -1,16 +1,24 @@
-<%= link_to "User Shelters Index", "/shelters" %>
+<h4>
+  <%= link_to "User Shelters Index", "/shelters" %>
+</h4>
 
 <h1>All Shelters</h1>
 
 <% @shelters.each do |shelter| %>
-  <div id="shelter-<%= shelter.id %>">
-    <h3><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></h3>
-  </div>
+  <section>
+    <div id="shelter-<%= shelter.id %>">
+      <h4><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></h4>
+    </div>
+  </section>
 <% end %>
 
 <h1>Shelters With Pending Applications</h1>
+
+
 <div id="pending">
-<% @pending.each do |shelter| %>
-  <h3><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></h3>
-<% end %>
+  <% @pending.each do |shelter| %>
+    <section>
+      <h4><%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %></h4>
+    </section>
+  <% end %>
 </div>
