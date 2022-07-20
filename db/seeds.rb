@@ -54,7 +54,6 @@ app_3 = App.create!(name: "Jeff", address: "1234 Dahlia Rd", city: "Tampa", stat
     city: Faker::Address.city,
     state: Faker::Address.state_abbr,
     zip: Faker::Address.zip,
-    description: [Faker::Movies::PrincessBride.quote, nil].sample,
     status: "in progress")
 end
 
