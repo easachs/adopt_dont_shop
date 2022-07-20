@@ -5,6 +5,6 @@
   <p>Adoptable: <%= @pet.adoptable %></p>
   <p><%= @pet.shelter_name %></p>
 
-  <p><%= link_to "Update #{@pet.name}", "pets/#{@pet.id}/edit" %></p>
+  <p><%= link_to "Update #{@pet.name}", "/pets/#{@pet.id}/edit" %></p>
   <p><%= link_to "Delete #{@pet.name}", "/pets/#{@pet.id}", method: :delete %></p>
 </section>
