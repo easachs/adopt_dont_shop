@@ -37,10 +37,10 @@ RSpec.describe 'the pets index' do
 
     visit '/pets'
 
-    expect(page).to have_content("Edit #{pet_1.name}")
-    expect(page).to have_content("Edit #{pet_2.name}")
+    expect(page).to have_button("Edit #{pet_1.name}")
+    expect(page).to have_button("Edit #{pet_2.name}")
 
-    click_link("Edit #{pet_1.name}")
+    click_button("Edit #{pet_1.name}")
 
     expect(page).to have_current_path("/pets/#{pet_1.id}/edit")
   end
