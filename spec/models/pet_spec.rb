@@ -62,5 +62,15 @@ RSpec.describe Pet, type: :model do
         expect(pet_1.pet_app_approval(app_1)).to eq('Approved')
       end
     end
+
+    describe '.already_added_on(this_app)' do
+      it 'returns if pet already added to this app' do
+        pet_1 = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+        app_1 = App.create!(name: "Bob", address: "2020 Maple Lane", city: "Denver", state: "CO", zip: "80202", description: "ABC", status: "accepted")
+        expect(pet_1.already_added_on(app_1)).to be(false)
+        PetApp.create!(pet: pet_1, app: app_1, approval: 'Approved')
+        expect(pet_1.reload.already_added_on(app_1)).to be(true)
+      end
+    end
   end
 end

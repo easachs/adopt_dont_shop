@@ -12,6 +12,10 @@
 <% if @pets %>
   <% @pets.each do |pet| %>
     <section><%= pet.name %>
-    <%= button_to "Adopt this Pet", "/apps/#{@app.id}", controller: :pet_app, action: :create, params: {pet: pet}, method: :post %></section>
+    <% if pet.already_added_on(@app) %>
+      <p>Already added to application</p>
+    <% else %>
+      <p><%= button_to "Adopt this Pet", "/apps/#{@app.id}", controller: :pet_app, action: :create, params: {pet: pet}, method: :post %></p>
+    <% end %></section>
   <% end %>
 <% end %>
