@@ -10,8 +10,8 @@
     <p>Age: <%= pet.age %></p>
     <p>Breed: <%= pet.breed %></p>
     <p><%= pet.name %> can be adopted from <%= @shelter.name %>!</p>
-    <%= link_to "Edit #{pet.name}", "/pets/#{pet.id}/edit" %>
-    <%= link_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
+    <%= button_to "Edit #{pet.name}", "/pets/#{pet.id}/edit", method: :get %>
+    <%= button_to "Delete #{pet.name}", "/pets/#{pet.id}", method: :delete %>
   </section>
 <% end %>
 
@@ -22,5 +22,5 @@
 <% end %>
 
 <h2>
-<%= link_to "Create a Pet", "/shelters/#{@shelter.id}/pets/new" %>
+<%= button_to "Create a Pet", "/shelters/#{@shelter.id}/pets/new", method: :get %>
 </h2>

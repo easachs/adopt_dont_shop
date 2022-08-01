@@ -34,10 +34,10 @@ RSpec.describe 'the veterinarians index' do
 
     visit '/veterinarians'
 
-    expect(page).to have_link("Edit #{vet_1.name}")
-    expect(page).to have_link("Edit #{vet_2.name}")
+    expect(page).to have_button("Edit #{vet_1.name}")
+    expect(page).to have_button("Edit #{vet_2.name}")
 
-    click_link("Edit #{vet_1.name}")
+    click_button("Edit #{vet_1.name}")
 
     expect(page).to have_current_path("/veterinarians/#{vet_1.id}/edit")
   end
@@ -49,10 +49,10 @@ RSpec.describe 'the veterinarians index' do
 
     visit '/veterinarians'
 
-    expect(page).to have_link("Delete #{vet_1.name}")
-    expect(page).to have_link("Delete #{vet_2.name}")
+    expect(page).to have_button("Delete #{vet_1.name}")
+    expect(page).to have_button("Delete #{vet_2.name}")
 
-    click_link("Delete #{vet_1.name}")
+    click_button("Delete #{vet_1.name}")
 
     expect(page).to have_current_path("/veterinarians")
     expect(page).to_not have_content(vet_1.name)

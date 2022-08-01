@@ -31,20 +31,20 @@ RSpec.describe 'the veterinary offices veterinarians index' do
   it 'displays a link to edit each veterinarian' do
     visit "/veterinary_offices/#{@vet_office_1.id}/veterinarians"
 
-    expect(page).to have_link("Edit #{@vet_1.name}")
-    expect(page).to have_link("Edit #{@vet_2.name}")
+    expect(page).to have_button("Edit #{@vet_1.name}")
+    expect(page).to have_button("Edit #{@vet_2.name}")
 
-    click_link("Edit #{@vet_1.name}")
+    click_button("Edit #{@vet_1.name}")
     expect(page).to have_current_path("/veterinarians/#{@vet_1.id}/edit")
   end
 
   it 'displays a link to delete each veterinarian' do
     visit "/veterinary_offices/#{@vet_office_1.id}/veterinarians"
 
-    expect(page).to have_link("Delete #{@vet_1.name}")
-    expect(page).to have_link("Delete #{@vet_2.name}")
+    expect(page).to have_button("Delete #{@vet_1.name}")
+    expect(page).to have_button("Delete #{@vet_2.name}")
 
-    click_link("Delete #{@vet_1.name}")
+    click_button("Delete #{@vet_1.name}")
 
     expect(page).to have_current_path("/veterinarians")
     expect(page).to_not have_content(@vet_1.name)
@@ -53,7 +53,7 @@ RSpec.describe 'the veterinary offices veterinarians index' do
   it 'displays a link to create a new veterinarian' do
     visit "/veterinary_offices/#{@vet_office_1.id}/veterinarians"
 
-    expect(page).to have_link("Create a Veterinarian")
+    expect(page).to have_button("Create a Veterinarian")
     click_on("Create a Veterinarian")
     expect(page).to have_current_path("/veterinary_offices/#{@vet_office_1.id}/veterinarians/new")
   end

@@ -24,4 +24,8 @@ class Pet < ApplicationRecord
   def pet_app_approval(app)
     pet_apps.find_by(app_id: app.id).approval
   end
+
+  def already_added_on(this_app)
+    pet_apps.any? { |petapp| petapp.app.id == this_app.id }
+  end
 end
